@@ -1,3 +1,4 @@
+const { json } = require("body-parser");
 const Materials = require("../models/materialsModel");
 const fs = require("fs");
 const path = require("path");
@@ -26,33 +27,39 @@ const getMaterialById = async (req, res) => {
     if (!fs.existsSync(imagePath)) {
       return res.status(404).json({ message: "Image not found" });
     }
-
-    // Determine and set content type based on file extension
-    const contentType = getContentType(material.imageUrl);
-    res.set("Content-Type", contentType);
-
-    // Read the image file and stream it in the response
-    const imageStream = fs.createReadStream(imagePath);
-    imageStream.pipe(res);
+    //
+    res.status(200).json({ material });
+    //
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-};
 
-// Helper function to determine content type based on file extension
-function getContentType(filename) {
-  const ext = path.extname(filename).toLowerCase();
-  switch (ext) {
-    case ".jpg":
-    case ".jpeg":
-      return "image/jpeg";
-    case ".png":
-      return "image/png";
-    default:
-      return "application/octet-stream"; // default to binary data if type is unknown
+  // Determine and set content type based on file extension
+  // const contentType = getContentType(material.imageUrl);
+  // res.set("Content-Type", contentType);
+
+  // Read the image file and stream it in the response
+  //   const imageStream = fs.createReadStream(imagePath);
+  //   imageStream.pipe(res);
+  // } catch (error) {
+  //   res.status(500).json({ message: error.message });
+  // }
+  // };
+
+  // Helper function to determine content type based on file extension
+  function getContentType(filename) {
+    const ext = path.extname(filename).toLowerCase();
+    switch (ext) {
+      case ".jpg":
+      case ".jpeg":
+        return "image/jpeg";
+      case ".png":
+        return "image/png";
+      default:
+        return "application/octet-stream"; // default to binary data if type is unknown
+    }
   }
-}
-
+};
 // Add a new material with optional image upload
 const addMaterial = async (req, res) => {
   const { name, technology, colors, pricePerGram, applicationTypes } = req.body;
