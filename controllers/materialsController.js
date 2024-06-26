@@ -33,32 +33,6 @@ const getMaterialById = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
-
-  // Determine and set content type based on file extension
-  // const contentType = getContentType(material.imageUrl);
-  // res.set("Content-Type", contentType);
-
-  // Read the image file and stream it in the response
-  //   const imageStream = fs.createReadStream(imagePath);
-  //   imageStream.pipe(res);
-  // } catch (error) {
-  //   res.status(500).json({ message: error.message });
-  // }
-  // };
-
-  // Helper function to determine content type based on file extension
-  function getContentType(filename) {
-    const ext = path.extname(filename).toLowerCase();
-    switch (ext) {
-      case ".jpg":
-      case ".jpeg":
-        return "image/jpeg";
-      case ".png":
-        return "image/png";
-      default:
-        return "application/octet-stream"; // default to binary data if type is unknown
-    }
-  }
 };
 // Add a new material with optional image upload
 const addMaterial = async (req, res) => {

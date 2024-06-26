@@ -13,9 +13,9 @@ MONGO_URI=<your_mongoDB_URI>
 
 `npm install -y`
 
-then 
+then
 
 `node server.js`
-or ` nodemon server.js` 
+or ` nodemon server.js`
 
 to run the backend server
